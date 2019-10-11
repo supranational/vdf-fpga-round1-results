@@ -1,0 +1,428 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Fri Aug 30 18:16:44 2019
+# Process ID: 9541
+# Current directory: /home/pmetzgen/vdf-fpga-metzgen/msu/rtl/vivado_ozturk/msu
+# Command line: vivado msu.xpr
+# Log file: /home/pmetzgen/vdf-fpga-metzgen/msu/rtl/vivado_ozturk/msu/vivado.log
+# Journal file: /home/pmetzgen/vdf-fpga-metzgen/msu/rtl/vivado_ozturk/msu/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project msu.xpr
+Scanning sources...
+Finished scanning sources
+WARNING: [filemgmt 56-3] Board Part Repository Path: Could not find the directory '/home/snpeffer/src/vdf/artya7/vivado-boards-master/new/board_files'.
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip'.
+open_project: Time (s): cpu = 00:00:10 ; elapsed = 00:00:07 . Memory (MB): peak = 6449.977 ; gain = 131.039 ; free physical = 29994 ; free virtual = 167935
+update_compile_order -fileset sources_1
+synth_design -rtl -name rtl_1
+Command: synth_design -rtl -name rtl_1
+Starting synth_design
+Using part: xc7s100fgga676-2
+Top: vdf
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 6790.527 ; gain = 0.000 ; free physical = 29845 ; free virtual = 167813
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'vdf' [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/sdaccel/vdf.v:39]
+	Parameter C_S_AXI_CONTROL_ADDR_WIDTH bound to: 6 - type: integer 
+	Parameter C_S_AXI_CONTROL_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_M00_AXI_ADDR_WIDTH bound to: 64 - type: integer 
+	Parameter C_M00_AXI_DATA_WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-5534] Detected attribute (* DONT_TOUCH = "yes" *) [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/sdaccel/vdf.v:124]
+INFO: [Synth 8-6157] synthesizing module 'vdf_control_s_axi' [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/sdaccel/vdf_control_s_axi.v:38]
+	Parameter C_ADDR_WIDTH bound to: 6 - type: integer 
+	Parameter C_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter LP_ADDR_AP_CTRL bound to: 6'b000000 
+	Parameter LP_ADDR_GIE bound to: 6'b000100 
+	Parameter LP_ADDR_IER bound to: 6'b001000 
+	Parameter LP_ADDR_ISR bound to: 6'b001100 
+	Parameter LP_ADDR_INPUT0_0 bound to: 6'b010000 
+	Parameter LP_ADDR_input_mem_0 bound to: 6'b011000 
+	Parameter LP_ADDR_input_mem_1 bound to: 6'b011100 
+	Parameter LP_ADDR_output_mem_0 bound to: 6'b100000 
+	Parameter LP_ADDR_output_mem_1 bound to: 6'b100100 
+	Parameter LP_ADDR_intermediates_mem_0 bound to: 6'b101000 
+	Parameter LP_ADDR_intermediates_mem_1 bound to: 6'b101100 
+	Parameter LP_SM_WIDTH bound to: 2 - type: integer 
+	Parameter SM_WRIDLE bound to: 2'b00 
+	Parameter SM_WRDATA bound to: 2'b01 
+	Parameter SM_WRRESP bound to: 2'b10 
+	Parameter SM_WRRESET bound to: 2'b11 
+	Parameter SM_RDIDLE bound to: 2'b00 
+	Parameter SM_RDDATA bound to: 2'b01 
+	Parameter SM_RDRESET bound to: 2'b11 
+INFO: [Synth 8-6155] done synthesizing module 'vdf_control_s_axi' (1#1) [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/sdaccel/vdf_control_s_axi.v:38]
+INFO: [Synth 8-6157] synthesizing module 'vdf_wrapper' [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/sdaccel/vdf_wrapper.sv:37]
+	Parameter C_M00_AXI_ADDR_WIDTH bound to: 64 - type: integer 
+	Parameter C_M00_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter LP_DEFAULT_LENGTH_IN_BYTES bound to: 80 - type: integer 
+	Parameter LP_NUM_EXAMPLES bound to: 1 - type: integer 
+INFO: [Synth 8-5534] Detected attribute (* KEEP = "yes" *) [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/sdaccel/vdf_wrapper.sv:90]
+INFO: [Synth 8-6157] synthesizing module 'vdf_kernel' [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/sdaccel/vdf_kernel.sv:40]
+	Parameter C_M_AXI_ADDR_WIDTH bound to: 64 - type: integer 
+	Parameter C_M_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_XFER_SIZE_WIDTH bound to: 32 - type: integer 
+	Parameter C_ADDER_BIT_WIDTH bound to: 32 - type: integer 
+	Parameter LP_DW_BYTES bound to: 4 - type: integer 
+	Parameter LP_AXI_BURST_LEN bound to: 256 - type: integer 
+	Parameter LP_LOG_BURST_LEN bound to: 8 - type: integer 
+	Parameter LP_BRAM_DEPTH bound to: 512 - type: integer 
+	Parameter LP_RD_MAX_OUTSTANDING bound to: 2 - type: integer 
+	Parameter LP_WR_MAX_OUTSTANDING bound to: 32 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'vdf_axi_read_master' [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/sdaccel/vdf_axi_read_master.sv:83]
+	Parameter C_M_AXI_ADDR_WIDTH bound to: 64 - type: integer 
+	Parameter C_M_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_XFER_SIZE_WIDTH bound to: 32 - type: integer 
+	Parameter C_MAX_OUTSTANDING bound to: 2 - type: integer 
+	Parameter C_INCLUDE_DATA_FIFO bound to: 1 - type: integer 
+	Parameter LP_DW_BYTES bound to: 4 - type: integer 
+	Parameter LP_LOG_DW_BYTES bound to: 2 - type: integer 
+	Parameter LP_MAX_BURST_LENGTH bound to: 256 - type: integer 
+	Parameter LP_MAX_BURST_BYTES bound to: 4096 - type: integer 
+	Parameter LP_AXI_BURST_LEN bound to: 256 - type: integer 
+	Parameter LP_LOG_BURST_LEN bound to: 8 - type: integer 
+	Parameter LP_OUTSTANDING_CNTR_WIDTH bound to: 2 - type: integer 
+	Parameter LP_TOTAL_LEN_WIDTH bound to: 30 - type: integer 
+	Parameter LP_TRANSACTION_CNTR_WIDTH bound to: 22 - type: integer 
+	Parameter LP_ADDR_MASK bound to: 64'b0000000000000000000000000000000000000000000000000000001111111111 
+	Parameter LP_FIFO_DEPTH bound to: 512 - type: integer 
+	Parameter LP_FIFO_READ_LATENCY bound to: 2 - type: integer 
+	Parameter LP_FIFO_COUNT_WIDTH bound to: 10 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'xpm_fifo_sync' [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1826]
+	Parameter FIFO_MEMORY_TYPE bound to: auto - type: string 
+	Parameter ECC_MODE bound to: no_ecc - type: string 
+	Parameter FIFO_WRITE_DEPTH bound to: 512 - type: integer 
+	Parameter WRITE_DATA_WIDTH bound to: 33 - type: integer 
+	Parameter WR_DATA_COUNT_WIDTH bound to: 10 - type: integer 
+	Parameter PROG_FULL_THRESH bound to: 10 - type: integer 
+	Parameter FULL_RESET_VALUE bound to: 1 - type: integer 
+	Parameter USE_ADV_FEATURES bound to: 1F1F - type: string 
+	Parameter READ_MODE bound to: fwft - type: string 
+	Parameter FIFO_READ_LATENCY bound to: 2 - type: integer 
+	Parameter READ_DATA_WIDTH bound to: 33 - type: integer 
+	Parameter RD_DATA_COUNT_WIDTH bound to: 10 - type: integer 
+	Parameter PROG_EMPTY_THRESH bound to: 10 - type: integer 
+	Parameter DOUT_RESET_VALUE bound to: 0 - type: string 
+	Parameter WAKEUP_TIME bound to: 0 - type: integer 
+	Parameter EN_ADV_FEATURE_SYNC bound to: 16'b0001111100011111 
+	Parameter P_FIFO_MEMORY_TYPE bound to: 0 - type: integer 
+	Parameter P_COMMON_CLOCK bound to: 1 - type: integer 
+	Parameter P_ECC_MODE bound to: 0 - type: integer 
+	Parameter P_READ_MODE bound to: 1 - type: integer 
+	Parameter P_WAKEUP_TIME bound to: 2 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'xpm_fifo_base' [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:56]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:124]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:124]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:124]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:124]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:124]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:124]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+	Parameter COMMON_CLOCK bound to: 1 - type: integer 
+	Parameter RELATED_CLOCKS bound to: 0 - type: integer 
+	Parameter FIFO_MEMORY_TYPE bound to: 0 - type: integer 
+	Parameter ECC_MODE bound to: 0 - type: integer 
+	Parameter FIFO_WRITE_DEPTH bound to: 512 - type: integer 
+	Parameter WRITE_DATA_WIDTH bound to: 33 - type: integer 
+	Parameter WR_DATA_COUNT_WIDTH bound to: 10 - type: integer 
+	Parameter PROG_FULL_THRESH bound to: 10 - type: integer 
+	Parameter USE_ADV_FEATURES bound to: 1F1F - type: string 
+	Parameter READ_MODE bound to: 1 - type: integer 
+	Parameter FIFO_READ_LATENCY bound to: 2 - type: integer 
+	Parameter READ_DATA_WIDTH bound to: 33 - type: integer 
+	Parameter RD_DATA_COUNT_WIDTH bound to: 10 - type: integer 
+	Parameter PROG_EMPTY_THRESH bound to: 10 - type: integer 
+	Parameter DOUT_RESET_VALUE bound to: 0 - type: string 
+	Parameter CDC_DEST_SYNC_FF bound to: 2 - type: integer 
+	Parameter FULL_RESET_VALUE bound to: 1 - type: integer 
+	Parameter REMOVE_WR_RD_PROT_LOGIC bound to: 0 - type: integer 
+	Parameter WAKEUP_TIME bound to: 0 - type: integer 
+	Parameter VERSION bound to: 0 - type: integer 
+	Parameter invalid bound to: 0 - type: integer 
+	Parameter stage1_valid bound to: 2 - type: integer 
+	Parameter stage2_valid bound to: 1 - type: integer 
+	Parameter both_stages_valid bound to: 3 - type: integer 
+	Parameter SIM_ASSERT_CHK bound to: 0 - type: integer 
+	Parameter FIFO_MEM_TYPE bound to: 0 - type: integer 
+	Parameter RD_MODE bound to: 1 - type: integer 
+	Parameter ENABLE_ECC bound to: 0 - type: integer 
+	Parameter FIFO_READ_DEPTH bound to: 512 - type: integer 
+	Parameter FIFO_SIZE bound to: 16896 - type: integer 
+	Parameter WR_WIDTH_LOG bound to: 6 - type: integer 
+	Parameter WR_DEPTH_LOG bound to: 9 - type: integer 
+	Parameter WR_PNTR_WIDTH bound to: 9 - type: integer 
+	Parameter RD_PNTR_WIDTH bound to: 9 - type: integer 
+	Parameter FULL_RST_VAL bound to: 1'b1 
+	Parameter WR_RD_RATIO bound to: 0 - type: integer 
+	Parameter PF_THRESH_ADJ bound to: 8 - type: integer 
+	Parameter PE_THRESH_ADJ bound to: 8 - type: integer 
+	Parameter PF_THRESH_MIN bound to: 5 - type: integer 
+	Parameter PF_THRESH_MAX bound to: 507 - type: integer 
+	Parameter PE_THRESH_MIN bound to: 5 - type: integer 
+	Parameter PE_THRESH_MAX bound to: 507 - type: integer 
+	Parameter WR_DC_WIDTH_EXT bound to: 10 - type: integer 
+	Parameter RD_DC_WIDTH_EXT bound to: 10 - type: integer 
+	Parameter RD_LATENCY bound to: 2 - type: integer 
+	Parameter WIDTH_RATIO bound to: 1 - type: integer 
+	Parameter EN_ADV_FEATURE bound to: 16'b0001111100011111 
+	Parameter EN_OF bound to: 1'b1 
+	Parameter EN_PF bound to: 1'b1 
+	Parameter EN_WDC bound to: 1'b1 
+	Parameter EN_AF bound to: 1'b1 
+	Parameter EN_WACK bound to: 1'b1 
+	Parameter FG_EQ_ASYM_DOUT bound to: 1'b0 
+	Parameter EN_UF bound to: 1'b1 
+	Parameter EN_PE bound to: 1'b1 
+	Parameter EN_RDC bound to: 1'b1 
+	Parameter EN_AE bound to: 1'b1 
+	Parameter EN_DVLD bound to: 1'b1 
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:124]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+INFO: [Synth 8-6157] synthesizing module 'xpm_counter_updn' [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1733]
+	Parameter COUNTER_WIDTH bound to: 9 - type: integer 
+	Parameter RESET_VALUE bound to: 3 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'xpm_counter_updn' (2#1) [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1733]
+INFO: [Synth 8-6157] synthesizing module 'xpm_counter_updn__parameterized0' [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1733]
+	Parameter COUNTER_WIDTH bound to: 9 - type: integer 
+	Parameter RESET_VALUE bound to: 2 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'xpm_counter_updn__parameterized0' (2#1) [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1733]
+INFO: [Synth 8-6157] synthesizing module 'xpm_memory_base' [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv:57]
+	Parameter MEMORY_TYPE bound to: 1 - type: integer 
+	Parameter MEMORY_SIZE bound to: 16896 - type: integer 
+	Parameter MEMORY_PRIMITIVE bound to: 0 - type: integer 
+	Parameter CLOCKING_MODE bound to: 0 - type: integer 
+	Parameter ECC_MODE bound to: 0 - type: integer 
+	Parameter MEMORY_INIT_FILE bound to: none - type: string 
+	Parameter MEMORY_INIT_PARAM bound to: (null) - type: string 
+	Parameter USE_MEM_INIT bound to: 0 - type: integer 
+	Parameter MEMORY_OPTIMIZATION bound to: true - type: string 
+	Parameter WAKEUP_TIME bound to: 0 - type: integer 
+	Parameter AUTO_SLEEP_TIME bound to: 0 - type: integer 
+	Parameter MESSAGE_CONTROL bound to: 0 - type: integer 
+	Parameter VERSION bound to: 0 - type: integer 
+	Parameter USE_EMBEDDED_CONSTRAINT bound to: 0 - type: integer 
+	Parameter WRITE_DATA_WIDTH_A bound to: 33 - type: integer 
+	Parameter READ_DATA_WIDTH_A bound to: 33 - type: integer 
+	Parameter BYTE_WRITE_WIDTH_A bound to: 33 - type: integer 
+	Parameter ADDR_WIDTH_A bound to: 9 - type: integer 
+	Parameter READ_RESET_VALUE_A bound to: 0 - type: string 
+	Parameter READ_LATENCY_A bound to: 2 - type: integer 
+	Parameter WRITE_MODE_A bound to: 2 - type: integer 
+	Parameter RST_MODE_A bound to: SYNC - type: string 
+	Parameter WRITE_DATA_WIDTH_B bound to: 33 - type: integer 
+	Parameter READ_DATA_WIDTH_B bound to: 33 - type: integer 
+	Parameter BYTE_WRITE_WIDTH_B bound to: 33 - type: integer 
+	Parameter ADDR_WIDTH_B bound to: 9 - type: integer 
+	Parameter READ_RESET_VALUE_B bound to: 0 - type: string 
+	Parameter READ_LATENCY_B bound to: 2 - type: integer 
+	Parameter WRITE_MODE_B bound to: 2 - type: integer 
+	Parameter RST_MODE_B bound to: SYNC - type: string 
+	Parameter P_MEMORY_PRIMITIVE bound to: auto - type: string 
+	Parameter P_MIN_WIDTH_DATA_A bound to: 33 - type: integer 
+	Parameter P_MIN_WIDTH_DATA_B bound to: 33 - type: integer 
+	Parameter P_MIN_WIDTH_DATA bound to: 33 - type: integer 
+	Parameter P_MIN_WIDTH_DATA_ECC bound to: 33 - type: integer 
+	Parameter P_MAX_DEPTH_DATA bound to: 512 - type: integer 
+	Parameter P_ECC_MODE bound to: no_ecc - type: string 
+	Parameter P_MEMORY_OPT bound to: yes - type: string 
+	Parameter P_WIDTH_COL_WRITE_A bound to: 33 - type: integer 
+	Parameter P_WIDTH_COL_WRITE_B bound to: 33 - type: integer 
+	Parameter P_NUM_COLS_WRITE_A bound to: 1 - type: integer 
+	Parameter P_NUM_COLS_WRITE_B bound to: 1 - type: integer 
+	Parameter P_NUM_ROWS_WRITE_A bound to: 1 - type: integer 
+	Parameter P_NUM_ROWS_WRITE_B bound to: 1 - type: integer 
+	Parameter P_NUM_ROWS_READ_A bound to: 1 - type: integer 
+	Parameter P_NUM_ROWS_READ_B bound to: 1 - type: integer 
+	Parameter P_WIDTH_ADDR_WRITE_A bound to: 9 - type: integer 
+	Parameter P_WIDTH_ADDR_WRITE_B bound to: 9 - type: integer 
+	Parameter P_WIDTH_ADDR_READ_A bound to: 9 - type: integer 
+	Parameter P_WIDTH_ADDR_READ_B bound to: 9 - type: integer 
+	Parameter P_WIDTH_ADDR_LSB_WRITE_A bound to: 0 - type: integer 
+	Parameter P_WIDTH_ADDR_LSB_WRITE_B bound to: 0 - type: integer 
+	Parameter P_WIDTH_ADDR_LSB_READ_A bound to: 0 - type: integer 
+	Parameter P_WIDTH_ADDR_LSB_READ_B bound to: 0 - type: integer 
+	Parameter P_ENABLE_BYTE_WRITE_A bound to: 0 - type: integer 
+	Parameter P_ENABLE_BYTE_WRITE_B bound to: 0 - type: integer 
+	Parameter P_SDP_WRITE_MODE bound to: yes - type: string 
+	Parameter NUM_CHAR_LOC bound to: 0 - type: integer 
+	Parameter MAX_NUM_CHAR bound to: 0 - type: integer 
+	Parameter P_MIN_WIDTH_DATA_SHFT bound to: 33 - type: integer 
+	Parameter P_MIN_WIDTH_DATA_LDW bound to: 4 - type: integer 
+INFO: [Synth 8-6059] Synth Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value.   [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv:518]
+WARNING: [Synth 8-6014] Unused sequential element gen_rd_b.gen_doutb_pipe.enb_pipe_reg[0] was removed.  [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv:2935]
+INFO: [Synth 8-5772] Detected attribute (* ram_ecc = "no_ecc" *) on RAM gen_wr_a.gen_word_narrow.mem_reg 
+INFO: [Synth 8-6155] done synthesizing module 'xpm_memory_base' (3#1) [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv:57]
+INFO: [Synth 8-6157] synthesizing module 'xpm_fifo_reg_bit' [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1781]
+	Parameter RST_VALUE bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'xpm_fifo_reg_bit' (4#1) [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1781]
+INFO: [Synth 8-226] default block is never used [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1187]
+INFO: [Synth 8-226] default block is never used [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1233]
+INFO: [Synth 8-226] default block is never used [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1244]
+INFO: [Synth 8-6157] synthesizing module 'xpm_counter_updn__parameterized1' [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1733]
+	Parameter COUNTER_WIDTH bound to: 2 - type: integer 
+	Parameter RESET_VALUE bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'xpm_counter_updn__parameterized1' (4#1) [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1733]
+INFO: [Synth 8-6157] synthesizing module 'xpm_fifo_rst' [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1504]
+	Parameter COMMON_CLOCK bound to: 1 - type: integer 
+	Parameter CDC_DEST_SYNC_FF bound to: 2 - type: integer 
+	Parameter SIM_ASSERT_CHK bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'xpm_fifo_rst' (5#1) [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1504]
+INFO: [Synth 8-6157] synthesizing module 'xpm_counter_updn__parameterized2' [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1733]
+	Parameter COUNTER_WIDTH bound to: 10 - type: integer 
+	Parameter RESET_VALUE bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'xpm_counter_updn__parameterized2' (5#1) [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1733]
+INFO: [Synth 8-6157] synthesizing module 'xpm_counter_updn__parameterized3' [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1733]
+	Parameter COUNTER_WIDTH bound to: 9 - type: integer 
+	Parameter RESET_VALUE bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'xpm_counter_updn__parameterized3' (5#1) [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1733]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:124]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:124]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:124]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:124]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+WARNING: [Synth 8-6104] Input port 'value' has an internal driver [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:126]
+INFO: [Common 17-14] Message 'Synth 8-6104' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [Synth 8-6014] Unused sequential element gdvld.data_valid_std_reg was removed.  [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:523]
+WARNING: [Synth 8-6014] Unused sequential element gen_pntr_flags_cc.gae_cc_std.ram_aempty_i_reg was removed.  [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:951]
+INFO: [Synth 8-5772] Detected attribute (* rw_addr_collision = "yes" *) on RAM gen_wr_a.gen_word_narrow.mem_reg 
+INFO: [Synth 8-4471] merging register 'gen_fwft.empty_fwft_fb_reg' into 'gen_fwft.empty_fwft_i_reg' [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1292]
+WARNING: [Synth 8-6014] Unused sequential element gen_fwft.empty_fwft_fb_reg was removed.  [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1292]
+INFO: [Synth 8-6155] done synthesizing module 'xpm_fifo_base' (6#1) [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:56]
+INFO: [Synth 8-5772] Detected attribute (* rw_addr_collision = "yes" *) on RAM gen_wr_a.gen_word_narrow.mem_reg 
+INFO: [Synth 8-6155] done synthesizing module 'xpm_fifo_sync' (7#1) [/home/pmetzgen/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:1826]
+INFO: [Synth 8-6157] synthesizing module 'vdf_counter' [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/sdaccel/vdf_counter.sv:38]
+	Parameter C_WIDTH bound to: 22 - type: integer 
+	Parameter C_INIT bound to: 22'b0000000000000000000000 
+	Parameter LP_ZERO bound to: 22'b0000000000000000000000 
+	Parameter LP_ONE bound to: 22'b0000000000000000000001 
+	Parameter LP_MAX bound to: 22'b1111111111111111111111 
+INFO: [Synth 8-6155] done synthesizing module 'vdf_counter' (8#1) [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/sdaccel/vdf_counter.sv:38]
+INFO: [Synth 8-6157] synthesizing module 'vdf_counter__parameterized0' [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/sdaccel/vdf_counter.sv:38]
+	Parameter C_WIDTH bound to: 2 - type: integer 
+	Parameter C_INIT bound to: 2'b10 
+	Parameter LP_ZERO bound to: 2'b00 
+	Parameter LP_ONE bound to: 2'b01 
+	Parameter LP_MAX bound to: 2'b11 
+INFO: [Synth 8-6155] done synthesizing module 'vdf_counter__parameterized0' (8#1) [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/sdaccel/vdf_counter.sv:38]
+INFO: [Synth 8-5772] Detected attribute (* rw_addr_collision = "yes" *) on RAM gen_wr_a.gen_word_narrow.mem_reg 
+INFO: [Synth 8-6155] done synthesizing module 'vdf_axi_read_master' (9#1) [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/sdaccel/vdf_axi_read_master.sv:83]
+INFO: [Synth 8-6157] synthesizing module 'msu' [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/msu.sv:28]
+	Parameter AXI_LEN bound to: 32 - type: integer 
+	Parameter C_XFER_SIZE_WIDTH bound to: 32 - type: integer 
+	Parameter SQ_IN_BITS bound to: 32'sb00000000000000000000010000000000 
+	Parameter SQ_OUT_BITS bound to: 32'sb00000000000000000000100001000000 
+	Parameter T_LEN bound to: 32'sb00000000000000000000000001000000 
+	Parameter AXI_IN_COUNT bound to: 32'sb00000000000000000000000000100100 
+	Parameter AXI_OUT_COUNT bound to: 32'sb00000000000000000000000001000100 
+	Parameter AXI_BYTES_PER_TXN bound to: 32'sb00000000000000000000000000000100 
+	Parameter AXI_IN_BITS bound to: 32'sb00000000000000000000010010000000 
+	Parameter AXI_OUT_BITS bound to: 32'sb00000000000000000000100010000000 
+	Parameter SQ_OUT_OFFSET bound to: 32'sb00000000000000000000000000000010 
+INFO: [Synth 8-6157] synthesizing module 'modular_square_wrapper' [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/modular_square_wrapper.sv:22]
+	Parameter MOD_LEN bound to: 32'sb00000000000000000000010000000000 
+	Parameter IO_STAGES bound to: 32'sb00000000000000000000000000000011 
+ERROR: [Synth 8-439] module 'modular_square_metzgen' not found [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/modular_square_wrapper.sv:68]
+	Parameter MOD_LEN bound to: 32'sb00000000000000000000010000000000 
+ERROR: [Synth 8-6156] failed synthesizing module 'modular_square_wrapper' [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/modular_square_wrapper.sv:22]
+ERROR: [Synth 8-6156] failed synthesizing module 'msu' [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/msu.sv:28]
+ERROR: [Synth 8-6156] failed synthesizing module 'vdf_kernel' [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/sdaccel/vdf_kernel.sv:40]
+ERROR: [Synth 8-6156] failed synthesizing module 'vdf_wrapper' [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/sdaccel/vdf_wrapper.sv:37]
+ERROR: [Synth 8-6156] failed synthesizing module 'vdf' [/home/pmetzgen/vdf-fpga-metzgen/msu/rtl/sdaccel/vdf.v:39]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 6790.527 ; gain = 0.000 ; free physical = 29882 ; free virtual = 167829
+---------------------------------------------------------------------------------
+RTL Elaboration failed
+45 Infos, 104 Warnings, 0 Critical Warnings and 7 Errors encountered.
+synth_design failed
+ERROR: [Vivado_Tcl 4-5] Elaboration failed - please see the console for details
+exit
+INFO: [Common 17-206] Exiting Vivado at Fri Aug 30 18:17:58 2019...

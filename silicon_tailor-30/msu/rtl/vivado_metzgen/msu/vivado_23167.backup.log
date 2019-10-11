@@ -1,0 +1,166 @@
+#-----------------------------------------------------------
+# Vivado v2018.3.op (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Sat Sep 28 19:16:54 2019
+# Process ID: 23167
+# Current directory: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu
+# Command line: vivado msu.xpr
+# Log file: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu/vivado.log
+# Journal file: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project msu.xpr
+Scanning sources...
+Finished scanning sources
+WARNING: [Project 1-509] GeneratedRun file for 'synth_1' not found
+WARNING: [Project 1-509] GeneratedRun file for 'impl_1' not found
+WARNING: [filemgmt 56-3] Board Part Repository Path: Could not find the directory '/home/snpeffer/src/vdf/artya7/vivado-boards-master/new/board_files'.
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2018.3.op2405991/data/ip'.
+open_project: Time (s): cpu = 00:00:12 ; elapsed = 00:00:09 . Memory (MB): peak = 6448.891 ; gain = 58.746 ; free physical = 39462 ; free virtual = 66312
+launch_runs synth_1 -jobs 4
+WARNING: [filemgmt 20-644] Circular Reference Found: '.xil_defaultlib.multisymbolsquarer' [/home/centos/src/vdf-fpga-metzgen/modular_square/rtl/multisymbolsquarer.sv:0] -->> '.xil_defaultlib.multisymbolsquarer' [/home/centos/src/vdf-fpga-metzgen/modular_square/rtl/multisymbolsquarer.sv:21]
+[Sat Sep 28 19:17:49 2019] Launched synth_1...
+Run output will be captured here: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu/msu.runs/synth_1/runme.log
+launch_runs: Time (s): cpu = 00:00:34 ; elapsed = 00:00:21 . Memory (MB): peak = 6488.043 ; gain = 2.941 ; free physical = 39574 ; free virtual = 66423
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
+open_run synth_1 -name synth_1
+Design is defaulting to impl run constrset: constrs_1
+Design is defaulting to synth run part: xcvu9p-fsgd2104-2L-e
+INFO: [Netlist 29-17] Analyzing 32890 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 6 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2018.3.op
+INFO: [Device 21-403] Loading part xcvu9p-fsgd2104-2L-e
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [/home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu.srcs/constrs_1/new/user.xdc]
+WARNING: [Vivado 12-507] No nets matched 'WRAPPER_INST/SH/kernel_clks_i/clkwiz_kernel_clk0/inst/CLK_CORE_DRP_I/clk_inst/clk_out1'. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu.srcs/constrs_1/new/user.xdc:15]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu.srcs/constrs_1/new/user.xdc:15]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+Finished Parsing XDC File [/home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu.srcs/constrs_1/new/user.xdc]
+Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_async_rst.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_xpm_cdc_async_rst'
+INFO: [Timing 38-35] Done setting XDC timing constraints. [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_async_rst.tcl:2]
+all_registers: Time (s): cpu = 00:01:52 ; elapsed = 00:00:36 . Memory (MB): peak = 11541.160 ; gain = 1512.391 ; free physical = 32020 ; free virtual = 59027
+Finished Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_async_rst.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_xpm_cdc_async_rst'
+Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_to_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.rd_pntr_cdc_inst'
+Finished Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_to_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.rd_pntr_cdc_inst'
+Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_from_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.wr_pntr_cdc_inst'
+Finished Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_from_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.wr_pntr_cdc_inst'
+Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_from_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.rd_pntr_cdc_inst'
+Finished Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_from_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.rd_pntr_cdc_inst'
+Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_to_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.wr_pntr_cdc_inst'
+Finished Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_to_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.wr_pntr_cdc_inst'
+Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_to_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.wr_pntr_cdc_dc_inst'
+Finished Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_to_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.wr_pntr_cdc_dc_inst'
+Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_from_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.wr_pntr_cdc_dc_inst'
+Finished Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_from_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.wr_pntr_cdc_dc_inst'
+Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_to_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.rd_pntr_cdc_dc_inst'
+Finished Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_to_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.rd_pntr_cdc_dc_inst'
+Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_from_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.rd_pntr_cdc_dc_inst'
+Finished Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_gray.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_from_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/gen_cdc_pntr.rd_pntr_cdc_dc_inst'
+Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_sync_rst.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_to_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.rrst_wr_inst'
+Finished Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_sync_rst.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_to_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.rrst_wr_inst'
+Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_sync_rst.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_from_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.wrst_rd_inst'
+Finished Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_sync_rst.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_from_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.wrst_rd_inst'
+Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_sync_rst.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_from_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.rrst_wr_inst'
+Finished Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_sync_rst.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_from_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.rrst_wr_inst'
+Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_sync_rst.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_to_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.wrst_rd_inst'
+Finished Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_sync_rst.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_to_vdf/inst_rd_xpm_fifo_async/gnuram_async_fifo.xpm_fifo_base_inst/xpm_fifo_rst_inst/gen_rst_ic.wrst_rd_inst'
+Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_fifo/tcl/xpm_fifo_rst.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_to_vdf/inst_rd_xpm_fifo_async'
+Finished Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_fifo/tcl/xpm_fifo_rst.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_to_vdf/inst_rd_xpm_fifo_async'
+Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_fifo/tcl/xpm_fifo_rst.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_from_vdf/inst_rd_xpm_fifo_async'
+Finished Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_fifo/tcl/xpm_fifo_rst.tcl] for cell 'inst_wrapper/inst_kernel/msu/modsqr/modsqr/i_dcfifo_from_vdf/inst_rd_xpm_fifo_async'
+Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_fifo/tcl/xpm_fifo_rst.tcl] for cell 'inst_wrapper/inst_kernel/inst_axi_read_master/gen_fifo.inst_rd_xpm_fifo_sync'
+Finished Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_fifo/tcl/xpm_fifo_rst.tcl] for cell 'inst_wrapper/inst_kernel/inst_axi_read_master/gen_fifo.inst_rd_xpm_fifo_sync'
+Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_fifo/tcl/xpm_fifo_rst.tcl] for cell 'inst_wrapper/inst_kernel/inst_axi_write_master/gen_fifo.inst_xpm_fifo_sync'
+Finished Sourcing Tcl File [/opt/Xilinx/Vivado/2018.3.op2405991/data/ip/xpm/xpm_fifo/tcl/xpm_fifo_rst.tcl] for cell 'inst_wrapper/inst_kernel/inst_axi_write_master/gen_fifo.inst_xpm_fifo_sync'
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00.10 ; elapsed = 00:00:00.10 . Memory (MB): peak = 11551.164 ; gain = 0.000 ; free physical = 33530 ; free virtual = 60537
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 943 instances were transformed.
+  DSP48E2 => DSP48E2 (DSP_ALU, DSP_A_B_DATA, DSP_C_DATA, DSP_MULTIPLIER, DSP_M_DATA, DSP_OUTPUT, DSP_PREADD_DATA, DSP_PREADD): 940 instances
+  RAM32M16 => RAM32M16 (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 3 instances
+
+open_run: Time (s): cpu = 00:04:53 ; elapsed = 00:05:10 . Memory (MB): peak = 11559.164 ; gain = 5026.020 ; free physical = 32924 ; free virtual = 59935
+launch_runs impl_1 -jobs 4
+Netlist sorting complete. Time (s): cpu = 00:00:00.07 ; elapsed = 00:00:00.07 . Memory (MB): peak = 11726.484 ; gain = 0.000 ; free physical = 37442 ; free virtual = 60761
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Netlist sorting complete. Time (s): cpu = 00:00:00.27 ; elapsed = 00:00:00.10 . Memory (MB): peak = 12975.348 ; gain = 0.000 ; free physical = 35630 ; free virtual = 59228
+[Sat Sep 28 22:44:23 2019] Launched impl_1...
+Run output will be captured here: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu/msu.runs/impl_1/runme.log
+launch_runs: Time (s): cpu = 00:05:27 ; elapsed = 00:05:08 . Memory (MB): peak = 13008.586 ; gain = 1282.102 ; free physical = 32288 ; free virtual = 57101
+close_design
+close_design: Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 13008.586 ; gain = 0.000 ; free physical = 13808 ; free virtual = 41876
+open_run impl_1
+INFO: [Netlist 29-17] Analyzing 32576 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 5 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2018.3.op
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:34 ; elapsed = 00:00:34 . Memory (MB): peak = 13445.516 ; gain = 436.930 ; free physical = 9441 ; free virtual = 37509
+Restored from archive | CPU: 35.000000 secs | Memory: 698.442192 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:35 ; elapsed = 00:00:34 . Memory (MB): peak = 13445.516 ; gain = 436.930 ; free physical = 9422 ; free virtual = 37489
+Netlist sorting complete. Time (s): cpu = 00:00:00.07 ; elapsed = 00:00:00.07 . Memory (MB): peak = 13445.516 ; gain = 0.000 ; free physical = 9485 ; free virtual = 37553
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 943 instances were transformed.
+  DSP48E2 => DSP48E2 (DSP_ALU, DSP_A_B_DATA, DSP_C_DATA, DSP_MULTIPLIER, DSP_M_DATA, DSP_OUTPUT, DSP_PREADD_DATA, DSP_PREADD): 940 instances
+  RAM32M16 => RAM32M16 (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 3 instances
+
+open_run: Time (s): cpu = 00:02:48 ; elapsed = 00:04:11 . Memory (MB): peak = 13466.527 ; gain = 457.941 ; free physical = 9149 ; free virtual = 37217
+open_report: Time (s): cpu = 00:00:29 ; elapsed = 00:00:09 . Memory (MB): peak = 13730.277 ; gain = 197.250 ; free physical = 8528 ; free virtual = 36596
+CRITICAL WARNING: [Timing 38-282] The design failed to meet the timing requirements. Please see the timing summary report for details on the timing violations.
+WARNING: [Timing 38-436] There are set_bus_skew constraint(s) in this design. Please run report_bus_skew to ensure that bus skew requirements are met.
+close_design
+close_design: Time (s): cpu = 00:00:13 ; elapsed = 00:00:12 . Memory (MB): peak = 14963.801 ; gain = 0.000 ; free physical = 29589 ; free virtual = 57652
+reset_run synth_1
+launch_runs impl_1 -jobs 4
+[Sun Sep 29 04:46:12 2019] Launched synth_1...
+Run output will be captured here: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu/msu.runs/synth_1/runme.log
+[Sun Sep 29 04:46:12 2019] Launched impl_1...
+Run output will be captured here: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu/msu.runs/impl_1/runme.log
+reset_run synth_1
+launch_runs impl_1 -jobs 4
+[Sun Sep 29 04:48:33 2019] Launched synth_1...
+Run output will be captured here: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu/msu.runs/synth_1/runme.log
+[Sun Sep 29 04:48:33 2019] Launched impl_1...
+Run output will be captured here: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu/msu.runs/impl_1/runme.log
+set_property is_enabled false [get_files  /home/centos/src/vdf-fpga-metzgen/modular_square/rtl/sum200to1.sv]
+update_compile_order -fileset sources_1
+set_property is_enabled true [get_files  /home/centos/src/vdf-fpga-metzgen/modular_square/rtl/sum200to1.sv]
+update_compile_order -fileset sources_1
+open_run impl_1
+INFO: [Netlist 29-17] Analyzing 32576 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 4 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2018.3.op
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:32 ; elapsed = 00:00:32 . Memory (MB): peak = 15228.914 ; gain = 0.000 ; free physical = 29190 ; free virtual = 57099
+Restored from archive | CPU: 32.210000 secs | Memory: 709.082642 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:32 ; elapsed = 00:00:32 . Memory (MB): peak = 15228.914 ; gain = 0.000 ; free physical = 29187 ; free virtual = 57095
+Netlist sorting complete. Time (s): cpu = 00:00:00.12 ; elapsed = 00:00:00.11 . Memory (MB): peak = 15228.914 ; gain = 0.000 ; free physical = 29281 ; free virtual = 57189
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 943 instances were transformed.
+  DSP48E2 => DSP48E2 (DSP_ALU, DSP_A_B_DATA, DSP_C_DATA, DSP_MULTIPLIER, DSP_M_DATA, DSP_OUTPUT, DSP_PREADD_DATA, DSP_PREADD): 940 instances
+  RAM32M16 => RAM32M16 (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 3 instances
+
+open_run: Time (s): cpu = 00:02:49 ; elapsed = 00:04:24 . Memory (MB): peak = 15244.918 ; gain = 204.070 ; free physical = 28933 ; free virtual = 56842
+open_report: Time (s): cpu = 00:00:21 ; elapsed = 00:00:10 . Memory (MB): peak = 15246.914 ; gain = 1.996 ; free physical = 28249 ; free virtual = 56157
+CRITICAL WARNING: [Timing 38-282] The design failed to meet the timing requirements. Please see the timing summary report for details on the timing violations.
+WARNING: [Timing 38-436] There are set_bus_skew constraint(s) in this design. Please run report_bus_skew to ensure that bus skew requirements are met.
+exit
+INFO: [Common 17-206] Exiting Vivado at Sun Sep 29 10:06:19 2019...

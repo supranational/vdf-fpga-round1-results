@@ -1,0 +1,34 @@
+#-----------------------------------------------------------
+# Vivado v2018.3.op (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Sat Sep 28 19:16:54 2019
+# Process ID: 23167
+# Current directory: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu
+# Command line: vivado msu.xpr
+# Log file: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu/vivado.log
+# Journal file: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project msu.xpr
+launch_runs synth_1 -jobs 4
+wait_on_run synth_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
+open_run synth_1 -name synth_1
+launch_runs impl_1 -jobs 4
+wait_on_run impl_1
+close_design
+open_run impl_1
+close_design
+reset_run synth_1
+launch_runs impl_1 -jobs 4
+wait_on_run impl_1
+reset_run synth_1
+launch_runs impl_1 -jobs 4
+wait_on_run impl_1
+set_property is_enabled false [get_files  /home/centos/src/vdf-fpga-metzgen/modular_square/rtl/sum200to1.sv]
+update_compile_order -fileset sources_1
+set_property is_enabled true [get_files  /home/centos/src/vdf-fpga-metzgen/modular_square/rtl/sum200to1.sv]
+update_compile_order -fileset sources_1
+open_run impl_1

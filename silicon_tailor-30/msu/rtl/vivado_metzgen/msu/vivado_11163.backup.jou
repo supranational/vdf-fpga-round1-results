@@ -1,0 +1,30 @@
+#-----------------------------------------------------------
+# Vivado v2018.3.op (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Sun Sep 29 15:22:21 2019
+# Process ID: 11163
+# Current directory: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu
+# Command line: vivado msu.xpr
+# Log file: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu/vivado.log
+# Journal file: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/msu/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project msu.xpr
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -jobs 4
+wait_on_run impl_1
+open_run impl_1
+report_utilization -name utilization_1
+close_design
+launch_simulation
+open_wave_config /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/tb_behav.wcfg
+source tb.tcl
+close_sim
+launch_simulation
+open_wave_config /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/tb_behav.wcfg
+source tb.tcl
+run all
+save_wave_config {/home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/tb_behav.wcfg}
+close_sim

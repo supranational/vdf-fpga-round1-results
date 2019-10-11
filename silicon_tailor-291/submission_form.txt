@@ -1,0 +1,270 @@
+
+VDF FPGA Competition Submission Form
+====================================
+Date: 30th September 2019
+
+-----------------------------------------------------------------------------
+-- Team name:                        Silicon Tailor
+-----------------------------------------------------------------------------
+-- Expected result (avg ns/square):  <30 ns/square
+-----------------------------------------------------------------------------
+-- Signed with:                      git commit -s -m "round 1 entry"
+-- All commits in this repository should be considered 'signed-off' according to the 'Developer Certificate of Origin'
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+-- Design documentation
+-----------------------------------------------------------------------------
+
+## Summary
+
+The overall architecture used is similar to Ozturk, a central loop circuit
+is used to perform squaring and modulo using a redundant number format.  
+This loop is optimized to have the minimum latency possible.  
+
+Extra logic is needed to convert the initial value into the redundant number format,
+and extra logic is also needed to convert the redundant number format back into
+a twos complement form.  The extra logic has negligible effect on the overall performance 
+on the circuit as this is dominated by the loop latency as the loop is iterated for 2^30 cycles.
+Hence this extra pre and post processing logic can be pipelined to amply meet the required clock frequency.
+
+There are several key design choices that have been used to achieve lower latency than OzTurk:
+(i) A recursive squarer is used rather than Ozturk's tabular multiplier.
+(ii) DSP blocks are combined to perform 34x34 or 42x42 squaring (rather than as isolated 18x18s)
+(iii) The modulo circuit is implemented using 6-LUTs rather than RAMs.
+(iv) Adder trees use 5:2 and 4:1 adders that can be much more efficient on a Xilinx FPGA
+(v) The loop circuit is only registered once, and each iteration of the loop takes one clock cycle (albeit at a slow clock)
+
+As with Ozturk, all large numbers are split into a number of 'symbols', where each symbol is mostly
+processed in isolation, with carrys between adjacent symbols being resolved only when needed.  This means that
+the loop logic does not contain any large carry chains.
+
+All loop logic is placed in SLR2 (together with the PLL). All non-loop logic is placed in SLR1, 
+this ensures that Vivado place-and-route has the maximum routing and logic resources available to optimize the core loop. 
+Apart from these SLR placement constraints, no other placement constraints are used.
+
+The design has been constructed to be a drop-in replacement for the OzTurk design,
+(and in fact the modulo coefficients are now generated using verilog macros rather than the python scripts).
+
+
+## Files
+
+All verilog files are in the modular_square/rtl subdirectory.
+Testbenches for submodules are in the modular_square/rtl/tb subdirectory.
+
+Minor changes have been made to the baseline:
+The project is now in msu/rtl/vivado_metzgen folder
+msu/rtl/modular_square_wrapper.sv now instantiates modular_square_metzgen_wrapper
+
+The testbench has been changed very slightly to
+(i) delay the test start to give the PLL a chance to lock
+(ii) accomodate a loop-core that has a loop-iteration of one clock cycle
+
+
+## Running the Tests
+
+Vivado Simulation: 
+cd msu/rtl/vivado_metzgen
+./run_vivado.sh
+
+SDAccel Simulation:
+cd msu
+make clean
+make hw_emu
+
+SDAccel Synthesis
+cd msu
+make clean
+make hw
+(then follow the existing procedure to create an Amazon AFI)
+
+
+## Overall Architecture
+
+modular_square_metzgen_wrapper   [Clock Crossing + PLL]
+ |
+ +-- modular_square_metzgen      [Register stages for SLR crossing, Pre-loop and Post-loop processing]
+      |
+      +-- modular_square_metzgen_iter	[ Core-Loop ]
+      |
+      +-- modular_square_metzgen_post	[ Post processing pipeline ]
+      
+
+The sequence of functions for the Core-loop are as follows:
+
+(1) Multisymbol-Squarer
+(2) Signed Carry Correction
+(3) Modulo lookup tables
+(4) 200:1 Adder tree for Modulo terms
+(5) Unsigned Carry Correction
+(6) Register --> connected to (1)
+
+The loop invariant is that at any iteration the Register contents can be converted to two's complement
+form and moduloed to yield the expected result.
+
+Note that the register value is in a redundant form, meaning that it may appear a lot larger than the 1024 bit
+number it represents, however as the Multisymbol-squarer has been designed to work with this larger number form
+it is not necessary to reduce it down to a 1024 bit format inside the loop (which would be costly in latency!). 
+Only the post processing pipeline needs to do this.
+
+
+## PLL design
+
+To maximize the loop latency, the fewest number of pipeline stages are used, even though this reduces the clock
+frequency at which the loop can iterate.   The reasoning behind this is that pipeline registers would unnecessarily
+constraint the timing of the loop logic (and potentially add delay too), and are not required as 
+(i) no resource sharing or reuse is needed, and (ii) the small LUT based memories can be read asynchronously.
+
+The modular_square_metzgen_wrapper module must transfer data to a slower clock domain where the VDF function will run.
+The host clockdomain (chosen to be 125MHz) is used to transfer data from the PC host, but the VDF clock runs at a 
+much slower rate to match the VDF latency (~33MHz).  Dual clock fifos are used to transfer data between clock domains,
+and special care is taken to ensure that these are reset before use, and no data is transferred until the VDF-PLL has
+achieved 'lock', and the Fifos have been initialized after reset.  A holding register is used to hold the first reset and start
+value until the VDF clock domain is ready.
+
+The existing interface does not allow the parent block to be stalled to wait for a reset to complete.
+Because of the remote clock is slower than 'clk' then it cannot be guaranteed that 
+valid sq_out values will not continue to be received from a previous run even after reset has been asserted.
+This design uses a sequence-number system to work around this where all sq_out values are tagged with the current sequence-number.
+The sequence number is only incremented whenever a start pulse is asserted, and then all outputs with a different 
+sequence-number can then be ignored. This ensures that all values still in the pipeline or Fifos from an old run continue to 
+flush out even after a reset pulse.
+
+Alternative vdfpll.sv files have been provided that can be used to fine tune the latency of the VDF function.
+In experiments, a latency close to 29ns is achievable (after 11 hours!), but 30ns is much easier to achieve (in just 8 hours).
+
+
+## Number formats
+
+Numbers are represented in the Core-loop Register as a polynomial of 32 symbols with radix 2^33, and each symbol is an unsigned 34-bit value.
+This means a number, X, is represented as:
+
+	X = Sum_i ( Symbol[i] * (2^33)^i )  for i = 0..31
+
+A radix of 2^33 is used (instead of 2^32) to provide extra bits for numbers larger than 1024-bits.  A minimum of (1024 + 8) bits are needed in
+total to store the 200:1 sum from the Modulo-term-adder.  Symbols also store an extra bit that stores any carry-save information, this is necessary
+to avoid long carry chains.
+
+The Register format is also used as the input to the Multisymbol Squarer.
+
+The square operation yields a result that is twice the number of symbols (and one extra symbol to store carry information).
+The Multisymbol squarer uses both addition and subtraction and so must use a slightly different number format that is based on Signed-symbol values.  
+The size of each symbol grows as it progresses through the multisymbol squarer but it never exceeds twice the original symbol size.  
+This means that a signed carry correction stage can add the excess bits in each symbol to the next symbol yielding a smaller 
+final number format where each symbol is just 35 bits (including 1 sign bit and 1 carry save bit).
+
+The Modulo lookup tables yield almost 200 unsigned 1024-bit terms.  These terms are each split up into 32 symbols with radix 2^33. 
+As the adder tree adds, carrys are saved in the symbols without propagating them, so each symbol grows up to 8-bits longer.
+A final unsigned carry correction stage adds these extra 8-bits of each symbol into the next symbol to return to the original number format.
+Note that any carry from the last digit can be safely discarded as the final sum would never be able to reach that high.
+
+
+## Squarer Architecture
+
+The Ozturk implementation use a 'rectangular' multiplier to implement a large squarer, multiplying every 
+18-bit symbol with every other.  This requires O(N^2) multipliers which is about 3,250 18x18 multipliers --
+much too large to fit in a single SLR.  Because the OzTurk multiplier is too large to fit in an SLR and 
+the latency penalty of crossing SLRs is very high; the baseline implementation circumvents this by reusing
+hardware (over 8 clock cycles).  So whilst this should be a very low latency implementation in theory,
+the size of the hardware means that latency must be sacrificed for area reduction.
+
+This implementation uses a 'recursive' squarer instead which only needs just O(N) multipliers and O(N log N) adder-logic.
+This reduces the resources needed for a large 1024-bit squarer significantly (to just 940 DSP blocks). 
+Although this implementation theoretically has double the number of logic levels compared to the OzTurk squarer,
+it fits comfortably within a single SLR logic region, yielding a reduced latency overall.
+
+A recursive squarer is built by splitting the input symbols in half (upper half and lower half sets).
+This can be written as: 
+
+X = A * 2^(N/2) + B
+
+where A is the upper half set of symbols and B is the lower half.
+
+X^2 = (A * 2^(N/2) + B) * (A * 2^(N/2) + B)
+    = (A^2) * 2^N + (2*A*B) * 2^(N/2) + (B^2)
+
+Note that: (A+B)^2 = A^2 + 2*A*B + B^2, and there 2*A*B can be replaced by ((A+B)^2 - A^2 - B^2)
+
+Hence an N-symbol number, X, can be squared by computing A^2, B^2, (A+B)^2 and combining the results
+using addition and subtraction.  Note that A, B, A+B are all N/2-symbol numbers, so N sized problem 
+has been reduced to an 3 N/2-sized problems.  
+
+This can be shown pictorially as:
+
+    Square({ A, B }):
+                  [ A ][ B ]
+                * [ A ][ B ]
+    ========================
+                  [  B*B   ]
+           [  2*A*B   ][ 0 ]
+  +     [  A*A   ][ 0 ][ 0 ]
+    ========================
+        [  A*A   ][  B*B   ]
+  +        [  2*A*B   ][ 0 ]			
+    ========================          
+        [  A*A   ][  B*B   ]          Therefore: 2*A*B = (A+B)^2 - A^2 - B^2
+  +         [ (A+B)^2 ][ 0 ]
+  -         [   A*A   ][ 0 ]
+  -         [   B*B   ][ 0 ]
+    ========================
+     [Upper][  Middle ][Lower] <-- Sections
+    ========================
+
+Note that because this technique uses subtraction, each symbol must be capable of representing a signed-number.
+Also (A+B) requires the middle symbols to grow by one-bit (at each recursive stage) to prevent loss of precision.
+
+This recursive squaring reduction is performed repeatedly until the base case where we only need to square a single symbol.
+Because some symbols have grown in bitwidth slightly, this last symbol will range from a 32-bit to a 40-bit number.
+A 42x42 unsigned squarer is built from 4 DSP blocks, and where possible a smaller 34x34 unsigned squarer that only
+requires 3 DSP blocks is used instead.
+    
+    
+## Modulo Architecture
+
+The Modulo lookup tables generate the adder terms needed.  The first three adder terms have special significance, 
+whereas the remaining terms are computed in groups of 6 using lookup tables to their equivalent 1024-bit value when Moduloed.  
+The first modulo term is a constant that is used to cater for the sign bits of all Symbols ((sum_n -(2^n))%M for n = set of all sign bit positions), 
+this allows us to invert all the signbits and treat them as positive 2^n terms thereafter.  
+The second term is the lower 33 bits of the first 32 Symbols, and the third term is the adjusted carry-save bits for those first 32 Symbols.
+
+By restricting the lookup tables to be 6-input or less, native 6-LUTs are used rather than the larger, slower RAMs.  
+The number of additional LUTs required to do this is small compared to the Modulo-adder tree, and the routing delays 
+tend to be lower for 6-LUTs compared to RAMs.
+    
+    
+## Adder Trees
+    
+Both the squarer and the 200:1 adder-tree used by the Modulo use a large number of adders.  A very compact adder design
+can be used to reduce the area and the latency of these adder trees.   The Xilinx FPGA architecture can support 2:1 adders
+in one level of logic or 3:1 adders that are theoretically as compact but require two levels of logic.  
+This design uses a combination of 5:2 and 4:1 adders which can make use of the LUT5s that preceed the Xilinx CLB carry chain
+to achieve much lower latency than conventional 2:1/3:1 adder trees.
+
+Experiments were also done with using unused DSP-blocks in the SLR as large adders (eg: 5:1), but the routing delays were found to be worse.
+
+
+## Post-processing
+
+The loop register holding the current VDF value is continually propagated back to SLR1 where a 2-stage pipeline is able to convert it 
+back into twos complement form.  The latency of this circuit is not so important as it is only really necessary on the final iteration.
+
+This is achieved in two stages, the first stage is to use modulo-looukup tables to reduce the 32x34-bit symbols into a set of 8 1024-bit numbers
+each of which is less than the MODULUS.  This is done is a similar fashion to the modulo-lookup function in the VDF loop.
+The second stage is to sum these 8 values, but now we take care to ensure that the sums do not exceed the MODULUS, so we use 
+modulo-adders.
+
+Although it is possible to use 1024-bit adders, for this sized adder it is lower latency to use carry-select adders.  
+This is achieved by splitting the 1024-bit values into 32-bit sized symbols, symbols are then summed independently, but
+we compute the sum for two cases, one assuming carry-0 and the other assuming carry-1.  Multiplexors are used to select
+the correct sum to output based on the carry-outs from previous symbols.  So the final symbol is a circuit composed of two 32-bit adders
+selected by a mux whose control input is a (simple) function of the 31-previous carry-outs, and has lower latency than a full 1024-bit carry chain.
+
+Modulo adders are implemented by computing two values, the sum and the sum-minus-the-modulus.  If the sum-minus-the-modulus is negative,
+then the sum is the correct answer, otherwise sum is too large and the sum-minus-the-modulus is chosen.  Note that although the
+sum-minus-the-modulus is technically a 3-way adder, and because the modulus is constant the code has been written so that the logic 
+is packed into just 1 level of logic on the Xilinx FPGA architecture.
+
+Post-processing could also be done in software, however this implementation is not too large (and much faster!).
+
+
+

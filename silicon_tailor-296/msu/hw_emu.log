@@ -1,0 +1,286 @@
+make[1]: Entering directory `/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel'
+mkdir -p obj_hw_emu
+time make -C obj_hw_emu -f ../Makefile.sdaccel TARGETS=hw_emu check
+make[2]: Entering directory `/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu'
+mkdir -p ./xclbin
+/opt/Xilinx/SDx/2018.3.op2405991/bin/xcpp -I/home/centos/src/vdf-fpga-metzgen/msu/sw -DFPGA=1 -DMODULUS=\"124066695684124741398798927404814432744698427125735684128131855064976895337309138910015071214657674309443149407457493434579063840841220334555160125016331040933690674569571217337630239191517205721310197608387239846364360850220896772964978569683229449266819903414117058030106528073928633017118689826625594484331\" -DMOD_LEN=1024 -I/home/centos/src/project_data/aws-fpga/SDAccel/examples/xilinx/libs/xcl2 -I/opt/xilinx/xrt/include/ -Wall -O0 -std=c++14 -fmessage-length=0 /home/centos/src/vdf-fpga-metzgen/msu/sw/MSUSDAccel.cpp /home/centos/src/vdf-fpga-metzgen/msu/sw/MSU.cpp /home/centos/src/vdf-fpga-metzgen/msu/sw/main.cpp /home/centos/src/project_data/aws-fpga/SDAccel/examples/xilinx/libs/xcl2/xcl2.cpp  -o 'host'  -L/opt/xilinx/xrt/lib/ -lOpenCL -lpthread -lgmp -lrt -lstdc++ 
+mkdir -p mem
+cd mem && /home/centos/src/vdf-fpga-metzgen/modular_square/rtl/gen_reduction_lut.py \
+                          --nonredundant 64 \
+                          --modulus 124066695684124741398798927404814432744698427125735684128131855064976895337309138910015071214657674309443149407457493434579063840841220334555160125016331040933690674569571217337630239191517205721310197608387239846364360850220896772964978569683229449266819903414117058030106528073928633017118689826625594484331
+
+Parameter Values
+---------------------
+REDUNDANT_ELEMENTS    2
+NONREDUNDANT_ELEMENTS 64
+WORD_LEN              16
+NUM_SEGMENTS          4
+EXTRA_ELEMENTS        2
+M                     0xb0ad4555c1ee34c8cb0577d7105a475171760330d577a0777ddcb955b302ad0803487d78ca267e8e9f5e3f46e35e10ca641a27e622b2d04bb09f3f5e3ad274b1744f34aeaf90fd45129a02a298dbc430f404f9988c862d10b58c91faba2aa2922f079229b0c8f88d86bfe6def7d026294ed9dee2504b5d30466f7b0488e2666b
+
+Creating 36 files
+reduction_lut_000.dat
+         ...          
+reduction_lut_035.dat
+echo "\`define SQ_IN_BITS_DEF 1024" \
+              > msuconfig.vh
+echo "\`define SQ_OUT_BITS_DEF 1024" \
+              >> msuconfig.vh
+echo "\`define MODULUS_DEF 1024'd124066695684124741398798927404814432744698427125735684128131855064976895337309138910015071214657674309443149407457493434579063840841220334555160125016331040933690674569571217337630239191517205721310197608387239846364360850220896772964978569683229449266819903414117058030106528073928633017118689826625594484331" \
+              >> msuconfig.vh
+echo "\`define MOD_LEN_DEF 1024" \
+              >> msuconfig.vh
+echo "[Emulation]" > sdaccel.ini
+echo "launch_waveform=batch" >> sdaccel.ini
+echo "[Debug]" >> sdaccel.ini
+echo "profile=true" >> sdaccel.ini
+echo "timeline_trace=true" >> sdaccel.ini
+echo "device_profile=true" >> sdaccel.ini
+mkdir -p ./xclbin
+vivado -mode batch -source ../tcl/gen_xo.tcl \
+                  -tclargs xclbin/vdf.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xo vdf hw /home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm
+
+****** Vivado v2018.3.op (64-bit)
+  **** SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+  **** IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+source ../tcl/gen_xo.tcl
+# if { $::argc != 4 } {
+#     puts "ERROR: Program \"$::argv0\" requires 4 arguments!\n"
+#     puts "Usage: $::argv0 <xoname> <krnl_name> <target> <device>\n"
+#     exit
+# }
+# set xoname    [lindex $::argv 0]
+# set krnl_name [lindex $::argv 1]
+# set target    [lindex $::argv 2]
+# set device    [lindex $::argv 3]
+# set suffix "${krnl_name}_${target}_${device}"
+# source ../tcl/package_kernel.tcl
+## set root_path        ../../../..
+## set msu_path         $root_path/msu/rtl
+## set sdaccel_path     $root_path/msu/rtl/sdaccel
+## set primitives_path  $root_path/primitives/rtl
+## set modsqr_path      $root_path/modular_square/rtl
+## set path_to_packaged       "./packaged_kernel_${suffix}"
+## set path_to_tmp_project    "./tmp_kernel_pack_${suffix}"
+## create_project -force kernel_pack $path_to_tmp_project 
+## add_files -norecurse [glob $msu_path/msu.sv]
+## add_files -norecurse [glob $msu_path/modular_square_wrapper.sv]
+## add_files -norecurse [glob msuconfig.vh]
+## add_files -norecurse [glob mem/*.dat]
+## add_files -norecurse [glob mem/reduction_lut.sv]
+## add_files -norecurse [glob $sdaccel_path/*.sv] 
+## add_files -norecurse [glob $sdaccel_path/*.v]
+## add_files -norecurse [glob $primitives_path/*.sv]
+## add_files -norecurse [glob $modsqr_path/*.sv]
+## set_property top ${krnl_name} [current_fileset]
+## update_compile_order -fileset sources_1
+update_compile_order: Time (s): cpu = 00:00:31 ; elapsed = 00:00:31 . Memory (MB): peak = 1761.891 ; gain = 288.137 ; free physical = 60574 ; free virtual = 82710
+## update_compile_order -fileset sim_1
+update_compile_order: Time (s): cpu = 00:00:31 ; elapsed = 00:00:31 . Memory (MB): peak = 1761.891 ; gain = 0.000 ; free physical = 60568 ; free virtual = 82704
+## ipx::package_project -root_dir $path_to_packaged -vendor xilinx.com -library RTLKernel -taxonomy /KernelIP -import_files -set_current false
+WARNING: [IP_Flow 19-3833] Unreferenced file from the top module is not packaged: '/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/mem/reduction_lut.sv'.
+WARNING: [IP_Flow 19-3833] Unreferenced file from the top module is not packaged: '/home/centos/src/vdf-fpga-metzgen/primitives/rtl/carry_save_adder.sv'.
+WARNING: [IP_Flow 19-3833] Unreferenced file from the top module is not packaged: '/home/centos/src/vdf-fpga-metzgen/primitives/rtl/carry_save_adder_tree_level.sv'.
+WARNING: [IP_Flow 19-3833] Unreferenced file from the top module is not packaged: '/home/centos/src/vdf-fpga-metzgen/primitives/rtl/compressor_tree_3_to_2.sv'.
+WARNING: [IP_Flow 19-3833] Unreferenced file from the top module is not packaged: '/home/centos/src/vdf-fpga-metzgen/primitives/rtl/full_adder.sv'.
+WARNING: [IP_Flow 19-3833] Unreferenced file from the top module is not packaged: '/home/centos/src/vdf-fpga-metzgen/primitives/rtl/multiplier.sv'.
+WARNING: [IP_Flow 19-3833] Unreferenced file from the top module is not packaged: '/home/centos/src/vdf-fpga-metzgen/primitives/rtl/multiply.sv'.
+WARNING: [IP_Flow 19-3833] Unreferenced file from the top module is not packaged: '/home/centos/src/vdf-fpga-metzgen/primitives/rtl/multiply_diff_widths.sv'.
+WARNING: [IP_Flow 19-3833] Unreferenced file from the top module is not packaged: '/home/centos/src/vdf-fpga-metzgen/modular_square/rtl/modular_square_8_cycles.sv'.
+WARNING: [IP_Flow 19-3833] Unreferenced file from the top module is not packaged: '/home/centos/src/vdf-fpga-metzgen/modular_square/rtl/modular_square_simple.sv'.
+WARNING: [IP_Flow 19-3833] Unreferenced file from the top module is not packaged: '/home/centos/src/vdf-fpga-metzgen/modular_square/rtl/xilinxdspadd.sv'.
+INFO: [IP_Flow 19-5169] Module 'vdf' uses SystemVerilog sources with a Verilog top file. These SystemVerilog files will not be analysed by the packager.
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2018.3.op2405991/data/ip'.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm00_axi' of definition 'xilinx.com:interface:aximm:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axi_control' of definition 'xilinx.com:interface:aximm:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'ap_rst_n' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'ap_clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'interrupt' of definition 'xilinx.com:signal:interrupt:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-4728] Bus Interface 'ap_rst_n': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+INFO: [IP_Flow 19-4728] Bus Interface 'interrupt': Added interface parameter 'SENSITIVITY' with value 'LEVEL_HIGH'.
+INFO: [IP_Flow 19-4728] Bus Interface 'ap_clk': Added interface parameter 'ASSOCIATED_RESET' with value 'ap_rst_n'.
+WARNING: [IP_Flow 19-3158] Bus Interface 'm00_axi': FREQ_HZ bus parameter missing from AXI interface when interface is not associated to a clock.
+WARNING: [IP_Flow 19-3158] Bus Interface 's_axi_control': FREQ_HZ bus parameter missing from AXI interface when interface is not associated to a clock.
+WARNING: [IP_Flow 19-3153] Bus Interface 'ap_clk': ASSOCIATED_BUSIF bus parameter is missing.
+INFO: [IP_Flow 19-2181] Payment Required is not set for this core.
+INFO: [IP_Flow 19-2187] The Product Guide file is missing.
+ipx::package_project: Time (s): cpu = 00:00:32 ; elapsed = 00:00:36 . Memory (MB): peak = 1795.340 ; gain = 33.449 ; free physical = 60475 ; free virtual = 82664
+## ipx::unload_core $path_to_packaged/component.xml
+## ipx::edit_ip_in_project -upgrade true -name tmp_edit_project -directory $path_to_packaged $path_to_packaged/component.xml
+INFO: [IP_Flow 19-795] Syncing license key meta-data
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/vdf_control_s_axi.v:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/add3.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/bigadd.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/bigadd3.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/convertfrommultisymbols.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/converttomultisymbols.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/dcfifo.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/modular_square_metzgen.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/vdfpackage.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/modular_square_metzgen_iter.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/modular_square_metzgen_post.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/modular_square_metzgen_wrapper.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/modular_square_wrapper.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/moduloadd.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/modulolookup.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/modulolut6.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/msuconfig.vh:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/msu.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/multisymbolsquarer.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/multisymbolsum200to1.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/signedcarrycorrection.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/square34.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/square42.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/squarer.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/sum13to1.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/sum200to1.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/sum4to1.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/sum5to2.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/unsignedcarrycorrection.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/vdf_axi_read_master.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/vdf_axi_write_master.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/vdf_counter.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/vdf_kernel.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/vdf_wrapper.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/vdfpll.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/xilinxdspmuladd.sv:]
+WARNING: [filemgmt 56-99] Vivado Synthesis ignores library specification for Verilog or SystemVerilog files. [/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/packaged_kernel_vdf_hw_/home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm/src/vdf.v:]
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2018.3.op2405991/data/ip'.
+## set_property core_revision 2 [ipx::current_core]
+## foreach up [ipx::get_user_parameters] {
+##   ipx::remove_user_parameter [get_property NAME $up] [ipx::current_core]
+## }
+## set_property sdx_kernel true [ipx::current_core]
+## set_property sdx_kernel_type rtl [ipx::current_core]
+## ipx::create_xgui_files [ipx::current_core]
+## ipx::associate_bus_interfaces -busif m00_axi -clock ap_clk [ipx::current_core]
+INFO: [IP_Flow 19-4728] Bus Interface 'ap_clk': Added interface parameter 'ASSOCIATED_BUSIF' with value 'm00_axi'.
+## ipx::associate_bus_interfaces -busif s_axi_control -clock ap_clk [ipx::current_core]
+## set_property xpm_libraries {XPM_CDC XPM_MEMORY XPM_FIFO} [ipx::current_core]
+## set_property supported_families { } [ipx::current_core]
+## set_property auto_family_support_level level_2 [ipx::current_core]
+## ipx::update_checksums [ipx::current_core]
+## ipx::save_core [ipx::current_core]
+## close_project -delete
+# if {[file exists "${xoname}"]} {
+#     file delete -force "${xoname}"
+# }
+# package_xo -xo_path ${xoname} -kernel_name ${krnl_name} -ip_directory ./packaged_kernel_${suffix} -kernel_xml ../kernel.xml
+WARNING: [Vivado 12-4404] The CPU emulation flow in XOCC is only supported when using a packaged XO file that contains C-model files, none were found.
+INFO: [Common 17-206] Exiting Vivado at Sat Sep 28 13:31:50 2019...
+mkdir -p ./xclbin
+/opt/Xilinx/SDx/2018.3.op2405991/bin/xocc -t hw_emu --platform /home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm  --save-temps --temp_dir ./vdf/_x.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0  -g -DMOD_LEN_DEF=1024 -DMODULUS_DEF=1024\'d124066695684124741398798927404814432744698427125735684128131855064976895337309138910015071214657674309443149407457493434579063840841220334555160125016331040933690674569571217337630239191517205721310197608387239846364360850220896772964978569683229449266819903414117058030106528073928633017118689826625594484331 -DMSU_SQ_IN_BITS_DEF=1024 -DMSU_SQ_OUT_BITS_DEF=1024 --xp "vivado_prop:run.pfm_dynamic_vdf_1_0_synth_1. {STEPS.SYNTH_DESIGN.ARGS.FANOUT_LIMIT}={400}" --xp "vivado_prop:run.impl_1. {STEPS.OPT_DESIGN.ARGS.DIRECTIVE}={Explore}" --xp "vivado_prop:run.impl_1. {STEPS.PLACE_DESIGN.ARGS.DIRECTIVE}={Explore}" --xp "vivado_prop:run.impl_1. {STEPS.PHYS_OPT_DESIGN.ARGS.DIRECTIVE}= {AlternateFlowWithRetiming}" --xp "vivado_prop:run.impl_1. {STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE}={AggressiveExplore}" --xp "vivado_prop:run.impl_1. {STEPS.POST_ROUTE_PHYS_OPT_DESIGN.ARGS.DIRECTIVE}= {AggressiveExplore}" --xp "vivado_prop:run.impl_1.{STEPS.PLACE_DESIGN.TCL.PRE}= /home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/placer_constrs.xdc" --kernel_frequency 125 \
+             -lo ./xclbin/vdf.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xclbin \
+             ./xclbin/vdf.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xo
+
+****** xocc v2018.3.op (64-bit)
+  **** SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+INFO: [XOCC 60-897] Reading --xp value from platform: param:compiler.lockFlowCritSlackThreshold=0
+INFO: [XOCC 60-897] Reading --xp value from platform: vivado_param:bd.disablePrefixForFaasIntf=1
+INFO: [XOCC 60-897] Reading --xp value from platform: vivado_param:hd.routingContainmentAreaExpansion=true
+INFO: [XOCC 60-897] Reading --xp value from platform: vivado_param:hd.supportClockNetCrossDiffReconfigurablePartitions=1
+INFO: [XOCC 60-897] Reading --xp value from platform: vivado_param:bitstream.enablePR=4123
+INFO: [XOCC 60-897] Reading --xp value from platform: vivado_param:physynth.ultraRAMOptOutput=false
+INFO: [XOCC 60-897] Reading --xp value from platform: vivado_prop:run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MAX_URAM_CASCADE_HEIGHT}={1}
+INFO: [XOCC 60-897] Reading --xp value from platform: vivado_param:synth.elaboration.rodinMoreOptions={rt::set_parameter disableOregPackingUram true}
+Attempting to get a license: ap_opencl
+Feature available: ap_opencl
+WARNING: [XOCC 60-642] Invalid parameter name: compiler.lockFlowCritSlackThreshold
+INFO: [XOCC 60-1306] Additional information associated with this xocc link can be found at:
+	Reports: /home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/vdf/_x.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0/reports/link
+	Log files: /home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/vdf/_x.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0/logs/link
+INFO: [XOCC 60-629] Linking for hardware emulation target
+Running SDx Rule Check Server on port:34902
+INFO: [XOCC 60-895]   Target platform: /home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm
+WARNING: [XOCC 74-49] Failed to read in file /opt/Xilinx/SDx/2018.3.op2405991/platforms/achromatic during platform validation.
+INFO: [XOCC 60-423]   Target device: xilinx_aws-vu9p-f1-04261818_dynamic_5_0
+INFO: [XOCC 60-825] xocc command line options for sdx_link are --xo ./xclbin/vdf.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xo -keep 
+using /home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm
+extracting xo v3 file /home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/xclbin/vdf.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xo
+Creating IP database /home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/vdf/_x.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0/link/sys_link/_sds/.cdb/xd_ip_db.xml
+processing accelerators: /home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/vdf/_x.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0/link/sys_link/iprepo/SupranationalLLC_vdf_vdf_1_0
+ip_dir: /home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/vdf/_x.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0/link/sys_link/iprepo/SupranationalLLC_vdf_vdf_1_0
+/opt/Xilinx/SDx/2018.3.op2405991/bin/xsltproc --stringparam xpath "spirit:component/spirit:name/text()" /opt/Xilinx/SDx/2018.3.op2405991/scripts/xdcc/xpathValueOf.xsl /home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/vdf/_x.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0/link/sys_link/iprepo/SupranationalLLC_vdf_vdf_1_0/component.xml
+ip_name: vdf
+Creating apsys_0.xml
+INFO: [CFGEN 83-2226] Inferring mapping for argument vdf_1.input_mem to bank0
+INFO: [CFGEN 83-2226] Inferring mapping for argument vdf_1.intermediates_mem to bank0
+INFO: [CFGEN 83-2226] Inferring mapping for argument vdf_1.output_mem to bank0
+
+Creating dr.bd.tcl
+INFO: [XOCC 60-812] xocc command line options for vpl are --xp param:compiler.lockFlowCritSlackThreshold=0 --xp vivado_param:bd.disablePrefixForFaasIntf=1 --xp vivado_param:hd.routingContainmentAreaExpansion=true --xp vivado_param:hd.supportClockNetCrossDiffReconfigurablePartitions=1 --xp vivado_param:bitstream.enablePR=4123 --xp vivado_param:physynth.ultraRAMOptOutput=false --xp vivado_prop:run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MAX_URAM_CASCADE_HEIGHT}={1} --xp vivado_param:synth.elaboration.rodinMoreOptions={rt::set_parameter disableOregPackingUram true} -t hw_emu -f /home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm --kernel_frequency 125 --xp param:compiler.enablePerformanceTrace=1 --xp misc:report=type report_timing_summary name impl_report_timing_summary_route_design_summary steps {route_design} runs {impl_1} options {-max_paths 10} --xp vivado_prop:run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS}={-directive sdx_optimization_effort_high} --xp vivado_prop:run.pfm_dynamic_vdf_1_0_synth_1. {STEPS.SYNTH_DESIGN.ARGS.FANOUT_LIMIT}={400} --xp vivado_prop:run.impl_1. {STEPS.OPT_DESIGN.ARGS.DIRECTIVE}={Explore} --xp vivado_prop:run.impl_1. {STEPS.PLACE_DESIGN.ARGS.DIRECTIVE}={Explore} --xp vivado_prop:run.impl_1. {STEPS.PHYS_OPT_DESIGN.ARGS.DIRECTIVE}= {AlternateFlowWithRetiming} --xp vivado_prop:run.impl_1. {STEPS.ROUTE_DESIGN.ARGS.DIRECTIVE}={AggressiveExplore} --xp vivado_prop:run.impl_1. {STEPS.POST_ROUTE_PHYS_OPT_DESIGN.ARGS.DIRECTIVE}= {AggressiveExplore} --xp vivado_prop:run.impl_1.{STEPS.PLACE_DESIGN.TCL.PRE}= /home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/placer_constrs.xdc --xp param:compiler.useHlsGpp=1 -g -s --xp misc:BinaryName=vdf.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0 
+
+****** vpl v2018.3.op (64-bit)
+  **** SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+Attempting to get a license: ap_opencl
+Feature available: ap_opencl
+INFO: [VPL 60-839] Read in kernel information from file '/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/vdf/_x.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0/link/int/kernel_info.dat'.
+WARNING: [VPL 60-642] Invalid parameter name: compiler.lockFlowCritSlackThreshold
+WARNING: [VPL 74-49] Failed to read in file /opt/Xilinx/SDx/2018.3.op2405991/platforms/achromatic during platform validation.
+INFO: [VPL 60-423]   Target device: xilinx_aws-vu9p-f1-04261818_dynamic_5_0
+INFO: [VPL 60-1032] Extracting DSA to /home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/vdf/_x.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0/link/vivado/.local/dsa
+INFO: [VPL 60-251]   Hardware accelerator integration...
+INFO: [XOCC 60-991] clock name 'kernel_clk_clk' (clock ID '0') is being mapped to clock name 'DATA_CLK' in the xclbin
+INFO: [XOCC 60-991] clock name 'kernel2_clk_clk' (clock ID '1') is being mapped to clock name 'KERNEL_CLK' in the xclbin
+INFO: [XOCC 60-991] clock name 'clk_main_a0' (clock ID '') is being mapped to clock name 'clk_main_a0' in the xclbin
+INFO: [XOCC 60-1230] The compiler selected the following frequencies for the runtime controllable kernel clock(s) and scalable system clock(s): System (SYSTEM) clock: clk_main_a0 = 250, Kernel (DATA) clock: kernel_clk_clk = 125, Kernel (KERNEL) clock: kernel2_clk_clk = 500
+INFO: [XOCC 60-244] Generating system estimate report...
+INFO: [XOCC 60-1092] Generated system estimate report: /home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/vdf/_x.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0/reports/link/system_estimate_vdf.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xtxt
+INFO: [XOCC 60-586] Created ./xclbin/vdf.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xclbin
+INFO: [XOCC 60-1307] Run completed. Additional information can be found in:
+	Guidance: /home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/vdf/_x.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0/reports/link/xocc_link_vdf.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0_guidance.html
+	Vivado Log: /home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/vdf/_x.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0/logs/link/vivado.log
+	Steps Log File: /home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu/vdf/_x.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0/logs/link/link.steps.log
+
+INFO: [XOCC 60-791] Total elapsed time: 0h 3m 29s
+emconfigutil --platform /home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm --od ./xclbin/xilinx_aws-vu9p-f1-04261818_dynamic_5_0
+
+****** configutil v2018.3.op (64-bit)
+  **** SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+INFO: [ConfigUtil 60-895]   Target platform: /home/centos/src/project_data/aws-fpga/SDAccel/aws_platform/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xpfm
+emulation configuration file `emconfig.json` is created in ./xclbin/xilinx_aws-vu9p-f1-04261818_dynamic_5_0 directory 
+cp -rf ./xclbin/xilinx_aws-vu9p-f1-04261818_dynamic_5_0/emconfig.json .
+XCL_EMULATION_MODE=hw_emu ./host -e -f 1
+Enabling hardware emulation mode
+Modulus is 124066695684124741398798927404814432744698427125735684128131855064976895337309138910015071214657674309443149407457493434579063840841220334555160125016331040933690674569571217337630239191517205721310197608387239846364360850220896772964978569683229449266819903414117058030106528073928633017118689826625594484331
+
+WARNING: The setting device_profile will be deprecated after 2018.2. Please use data_transfer_trace.
+ERROR: xclProbe-scan failed at fpga_pci_get_all_slot_specs
+xclProbe found 0 FPGA slots with xocl driver running
+Found Platform
+Platform Name: Xilinx
+XCLBIN File Name: vdf
+INFO: Importing xclbin/vdf.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xclbin
+Loading: 'xclbin/vdf.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xclbin'
+Loading: 'xclbin/vdf.hw_emu.xilinx_aws-vu9p-f1-04261818_dynamic_5_0.xclbin'
+INFO: [SDx-EM 01] Hardware emulation runs simulation underneath. Using a large data set will result in long simulation times. It is recommended that a small dataset is used for faster execution. This flow does not use cycle accurate models and hence the performance data generated is approximate.
+msu_in is 0x851698569993e83a65eb9c589d31d57613b9e0d304af253e72a25fb62d56a81322aa13a270c77f95a51d16e8e209a0277038ce55ddae57fbe0cec83f5be0b04d09c764c8f3c413cfd57c8a5d299c5cc82fd6dfdbd477a87715a0d413f32420fc7b34411325e1217a71096848fde90ec745558c7335696741d41c91186caf806b00000000000000010000000000000000
+msu_out is 0x2c061ef03460b6aba78c1765bdc83b0e8f5454f859923fb6aa39c3af47463063bb012772ea476a1a216bd0be90a859df679d4b091cc12b189d50aefbe96f71d8bd93722e4d62a4b745d02d6ddbf27f6e8d5281c6705abc8e2d1c4cb0633d520e7d2a7adc3b1a186f0ea0f2f5d674b273c099bdba3dd765651c9a1c31cbc9a85a0000000000000000
+sq_out is 0x2c061ef03460b6aba78c1765bdc83b0e8f5454f859923fb6aa39c3af47463063bb012772ea476a1a216bd0be90a859df679d4b091cc12b189d50aefbe96f71d8bd93722e4d62a4b745d02d6ddbf27f6e8d5281c6705abc8e2d1c4cb0633d520e7d2a7adc3b1a186f0ea0f2f5d674b273c099bdba3dd765651c9a1c31cbc9a85a
+sq_in    is 0x851698569993e83a65eb9c589d31d57613b9e0d304af253e72a25fb62d56a81322aa13a270c77f95a51d16e8e209a0277038ce55ddae57fbe0cec83f5be0b04d09c764c8f3c413cfd57c8a5d299c5cc82fd6dfdbd477a87715a0d413f32420fc7b34411325e1217a71096848fde90ec745558c7335696741d41c91186caf806b
+expected is 0x2c061ef03460b6aba78c1765bdc83b0e8f5454f859923fb6aa39c3af47463063bb012772ea476a1a216bd0be90a859df679d4b091cc12b189d50aefbe96f71d8bd93722e4d62a4b745d02d6ddbf27f6e8d5281c6705abc8e2d1c4cb0633d520e7d2a7adc3b1a186f0ea0f2f5d674b273c099bdba3dd765651c9a1c31cbc9a85a
+actual   is 0x2c061ef03460b6aba78c1765bdc83b0e8f5454f859923fb6aa39c3af47463063bb012772ea476a1a216bd0be90a859df679d4b091cc12b189d50aefbe96f71d8bd93722e4d62a4b745d02d6ddbf27f6e8d5281c6705abc8e2d1c4cb0633d520e7d2a7adc3b1a186f0ea0f2f5d674b273c099bdba3dd765651c9a1c31cbc9a85a
+MATCH!
+
+PASSED 1 iterations
+INFO: [SDx-EM 22] [Wall clock time: 13:43, Emulation time: 0.526414 ms] Data transfer between kernel(s) and global memory(s)
+vdf_1:m00_axi-DDR          RD = 0.035 KB               WR = 0.033 KB        
+
+INFO: [SDx-EM 06-0] Waiting for the simulator process to exit
+INFO: [SDx-EM 06-1] All the simulator processes exited successfully
+make[2]: Leaving directory `/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel/obj_hw_emu'
+1066.07user 36.05system 13:48.98elapsed 132%CPU (0avgtext+0avgdata 2643152maxresident)k
+1895944inputs+5740208outputs (5031major+5206518minor)pagefaults 0swaps
+make[1]: Leaving directory `/home/centos/src/vdf-fpga-metzgen/msu/rtl/sdaccel'

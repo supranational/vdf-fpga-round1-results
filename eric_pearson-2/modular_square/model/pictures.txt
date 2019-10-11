@@ -1,0 +1,87 @@
+################################################################################
+# Copyright 2019 Supranational LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+################################################################################
+
+################################################################################
+# Cycle 0: Squaring
+################################################################################
+# input polynomial (V) of 66 elements
+#
+#        |---|----------------------------------|
+#        | R |                 V                |
+#        |---|----------------------------------|
+#
+# R is the redundant extra elements that carry over from previous operations in
+#  order to lessen the burden of handling carries.  From now on the values of R
+#  will be considered part of W3 itself.
+
+# Multiply input polynomial with itself using 2211 parallel multipliers 
+# Since this is a square, number of multipliers was reduced by symetry
+#
+# squared polynomial (V*V) of 132 elements
+#   |-----------------------------------------------------------------------|
+#   |                                  V*V                                  |
+#   |-----------------------------------------------------------------------|
+
+################################################################################
+# Cycle 1: Modulus Reduction
+################################################################################
+# The squared polynomial is divided up into 8 named segment of 16 elements
+# but with 20 elements for V7
+#   |---|--------|--------|--------|--------|--------|--------|--------|
+#   |   |   V7   |   V6   |   V5   |   V3   |   V2   |   V1   |   V0   |
+#   |---|--------|--------|--------|--------|--------|--------|--------|
+
+# Memory lookup table for reduction constants
+# each element is split into three parts (6b/6b/5b) for lookup with LUTRAMS
+# Each memory address would store a value of size NONREDUNDANT_ELEMENTS * 
+#  WORD_LEN.  For a 128 NONREDUNDANT_ELEMENTS value with WORD_LEN 16, the
+#  memory contents would each hold a 1024 bit value.  
+# Once the memory contents are read, each value across all elements is summed
+#  with the running tally.  
+# There will be 68*3 number of distinct memories.
+
+# The outputs of the memories are added together with the lower 64 words of the square.
+#
+#                                     |-----------------------------------|
+#                                     |         6 lsb LUTRAMs             |
+#                                  |-----------------------------------|  |
+#                                  |         6 csb Lookup BRAMs        |--+
+# |---|--------|--------|       |-----------------------------------|  |
+# |   |   V7   |   V6   |  -->  |                                   |  |
+# |---|--------|--------|       |       5 msb Lookup Brams          |--|
+#                               |                                   |
+#                               |-----------------------------------|
+# 
+#                                     |-----------------------------------|
+#                                     |         6 lsb LUTRAMs             |
+#                                  |-----------------------------------|  |
+#                                  |         6 csb LUTRAMs             |  |
+#     |--------|--------|       |-----------------------------------|  |--|
+#     |   V5   |   V4   |  -->  |                                   |  |
+#     |--------|--------|       |       5 msb LUTRAMs Tables        |--|
+#                               |                                   |
+#                               |-----------------------------------|
+#
+#                               |--------|--------|--------|--------|
+#     +                         |   V3   |   V2   |   V1   |   V0   |
+#                               |--------|--------|--------|--------|
+#     ----------------------------------------------------------------------
+#                           |---|-----------------------------------|
+#                           |   |     Accumlated (V*V)%N            |
+#                           |---|-----------------------------------|
+#                                              
+# The accumulated totals has 66 elements.
+#

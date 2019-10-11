@@ -1,0 +1,27 @@
+VDF FPGA Competition Submission Form
+
+To submit your design:
+- submit an official team entry form
+- fill in the fields below
+- create your final commit with git signoff:
+    git commit -s -m "round 1 entry"
+- email your final repo + commit to hello@vdfalliance.org
+
+Team name: FPGA_enthusiast
+Expected result (avg ns/square): 45.7 ns (8 clks/square @ 175 MHz)
+Design documentation (below):
+1. The Squarer is based on the Project from Ozturk, from the pll_cdc branch
+
+2. The adder three compression is improved: Originally, the adder tree is based on 3-to-2 CSA. Now it uses 6-to-3 CSA (which is better suited for 6-input LUTs). This reduces the number of logic levels in the adder three. 
+The following files were added to the primitives to enable 6-to-3 CSA:
+\primitives\rtl\carry_save_adder_6_3.sv
+\primitives\rtl\carry_save_adder_tree_6_3_level.sv
+\primitives\rtl\compressor_tree_6_to_3.sv
+\primitives\rtl\full_adder_6.sv
+Due to the change, also some adjustments in the main squaring file (modular_square_8_cycles.sv) were required. The final addition after the CSA adders has now three instead of two inputs (a three-input adder can be implemented in one carry-chain, it is therefore only little costlier than a two-input adder).
+
+3. Small improvements in the existing main squaring file (modular_square_8_cycles.sv):
+ - max_fanout attribute
+ - "Pipelining" the main FSM so that the "next_state" signal is already a FF output. This way, control logic has easier timing.
+
+4. Due to the modifications, the core clock frequency could be increased from 161 to 175 MHz

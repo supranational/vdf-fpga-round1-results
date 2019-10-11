@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.3.op (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Sat Sep 28 16:30:03 2019
+# Process ID: 27983
+# Current directory: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen
+# Command line: vivado -source msu.tcl -mode batch
+# Log file: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/vivado.log
+# Journal file: /home/centos/src/vdf-fpga-metzgen/msu/rtl/vivado_metzgen/vivado.jou
+#-----------------------------------------------------------
+source msu.tcl
